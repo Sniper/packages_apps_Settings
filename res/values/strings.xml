@@ -4740,4 +4740,7 @@
     <string name="baked_waiver_title">Waiver</string>
     <string name="baked_waiver_body">Changing this setting may be against your state or government laws.\n\nIn selecting \'OK\' below, you acknowledge this warning and waive, indemnify and hold harmless TeamBAKED and its contributors from all legal liabilities.</string>
 
+    <!-- Stylus Icon -->
+    <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
+    <string name="stylus_icon_enabled_summary">Show the pointer icon when hovering or drawing with the stylus</string>
 </resources>
