@@ -106,7 +106,7 @@ public class Settings extends PreferenceActivity
             R.id.about_settings
     };
 
-    private boolean mEnableUserManagement = false;
+    private boolean mEnableUserManagement = true;
 
     // TODO: Update Call Settings based on airplane mode state.
 
@@ -122,10 +122,10 @@ public class Settings extends PreferenceActivity
             getWindow().setUiOptions(0);
         }
 
-        if (android.provider.Settings.Secure.getInt(getContentResolver(), "multiuser_enabled", -1)
+        /* if (android.provider.Settings.Secure.getInt(getContentResolver(), "multiuser_enabled", -1)
                 > 0) {
             mEnableUserManagement = true;
-        }
+        } */
 
         mAuthenticatorHelper = new AuthenticatorHelper();
         mAuthenticatorHelper.updateAuthDescriptions(this);
