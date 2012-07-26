@@ -64,8 +64,8 @@
             android:title="@string/rom_control_title">
         <intent
                 android:action="android.intent.action.MAIN"
-                android:targetClass="com.aokp.romcontrol.ROMControlActivity"
-                android:targetPackage="com.aokp.romcontrol" />
+                android:targetClass="com.baked.romcontrol.ROMControlActivity"
+                android:targetPackage="com.baked.romcontrol" />
     </header>
 
     <header android:id="@+id/advanced_settings"
@@ -125,6 +125,14 @@
 
     <!-- PERSONAL -->
     <header android:title="@string/header_category_personal" />
+
+
+    <!-- Profiles -->
+    <header
+        android:id="@+id/profiles_settings"
+        android:icon="@drawable/ic_settings_profiles"
+        android:fragment="com.android.settings.profiles.ProfilesSettings"
+        android:title="@string/profiles_settings_title" />
 
     <!-- Manage users -->
     <header
