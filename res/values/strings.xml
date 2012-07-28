@@ -4169,6 +4169,8 @@
     <string name="start_time_title">Start</string>
     <string name="end_time_title">End</string>
 
+    <string name="ok">OK</string>
+
     <!-- Display settings screen, notification light settings -->
     <string name="notification_pulse_title">Notification light</string>
     <string name="notification_light_general_title">General</string>
