@@ -65,9 +65,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
 
-    private CheckBoxPreference mAccelerometer;
-    private ListPreference mFontSizePref;
-
     private final Configuration mCurConfig = new Configuration();
 
     private ListPreference mScreenTimeoutPreference;
