@@ -34,4 +34,7 @@
 
     <!-- Whether User management screen is available -->
     <bool name="enable_user_management">true</bool>
+    <!-- Display eos charging light setting -->
+    <bool name="config_eos_display_charging_light">false</bool>
+
 </resources>

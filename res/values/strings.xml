@@ -4300,4 +4300,9 @@
 
     <!-- Themes settings #CM -->
     <string name="themes_settings_title">Themes</string>
+
+    <!-- EOS charging light strings -->
+    <string name="eos_display_charginglight">Enable the charging light</string>
+    <string name="eos_display_charging_light_location"></string>
+    <string name="eos_display_other">LED charging light settings</string>
 </resources>
