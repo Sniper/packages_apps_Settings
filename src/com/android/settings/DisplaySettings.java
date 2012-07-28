@@ -64,9 +64,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mEnableChargingLight;
 
     private final Configuration mCurConfig = new Configuration();
-    
+
     private ListPreference mScreenTimeoutPreference;
     private Preference mScreenSaverPreference;
+    private Preference mEosCategory;
 
     private final RotationPolicy.RotationPolicyListener mRotationPolicyListener =
             new RotationPolicy.RotationPolicyListener() {
@@ -97,7 +98,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                         com.android.internal.R.bool.config_enableDreams) == false) {
             getPreferenceScreen().removePreference(mScreenSaverPreference);
         }
-        
+
         mScreenTimeoutPreference = (ListPreference) findPreference(KEY_SCREEN_TIMEOUT);
         final long currentTimeout = Settings.System.getLong(resolver, SCREEN_OFF_TIMEOUT,
                 FALLBACK_SCREEN_TIMEOUT_VALUE);
@@ -107,9 +108,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         updateTimeoutPreferenceDescription(currentTimeout);
 
         mEnableChargingLight = (CheckBoxPreference) findPreference("eos_display_charginglight");
+        mEosCategory = (PreferenceCategory) findPreference("eos_display_other");
         if (!getActivity().getResources().getBoolean(R.bool.config_eos_display_charging_light))
             ((PreferenceCategory) findPreference("eos_display_other"))
-                    .removePreference(mEnableChargingLight);
+                    .removePreference(mEosCategory);
         mEnableChargingLight.setOnPreferenceChangeListener(this);
         File dataDirectory = getActivity().getDir("eos", Context.MODE_PRIVATE);
         File chargingLightFile = new File (dataDirectory.getAbsolutePath() + File.separator + "charging_light");
@@ -204,7 +206,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
         return indices.length-1;
     }
-    
+
     public void readFontSizePreference(ListPreference pref) {
         try {
             mCurConfig.updateFrom(ActivityManagerNative.getDefault().getConfiguration());
@@ -222,7 +224,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         pref.setSummary(String.format(res.getString(R.string.summary_font_size),
                 fontSizeNames[index]));
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
