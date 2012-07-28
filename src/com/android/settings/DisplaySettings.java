@@ -29,7 +29,6 @@ import android.os.RemoteException;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -61,7 +60,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mAccelerometer;
     private ListPreference mFontSizePref;
 
-    
+
     private CheckBoxPreference mEnableChargingLight;
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
@@ -73,8 +72,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     private ListPreference mScreenTimeoutPreference;
     private Preference mScreenSaverPreference;
-    private Preference mEosCategory;
-
     private final RotationPolicy.RotationPolicyListener mRotationPolicyListener =
             new RotationPolicy.RotationPolicyListener() {
         @Override
@@ -114,10 +111,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         updateTimeoutPreferenceDescription(currentTimeout);
 
         mEnableChargingLight = (CheckBoxPreference) findPreference("eos_display_charginglight");
-        mEosCategory = (PreferenceCategory) findPreference("eos_display_other");
         if (!getActivity().getResources().getBoolean(R.bool.config_eos_display_charging_light))
-            ((PreferenceCategory) findPreference("eos_display_other"))
-                    .removePreference(mEosCategory);
+            ((PreferenceScreen) findPreference("eos_display_other"))
+                    .removePreference(mEnableChargingLight);
         mEnableChargingLight.setOnPreferenceChangeListener(this);
         File dataDirectory = getActivity().getDir("eos", Context.MODE_PRIVATE);
         File chargingLightFile = new File (dataDirectory.getAbsolutePath() + File.separator + "charging_light");
