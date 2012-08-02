@@ -33,25 +33,29 @@ public class QuietHours extends SettingsPreferenceFragment implements
 
     private static final String KEY_QUIET_HOURS_ENABLED = "quiet_hours_enabled";
 
-    private static final String KEY_QUIET_HOURS_NOTIFICATIONS = "quiet_hours_notifications";
-    
-    private static final String KEY_QUIET_HOURS_RINGER = "quiet_hours_ringer";
+    private static final String KEY_QUIET_HOURS_MUTE = "quiet_hours_mute";
 
     private static final String KEY_QUIET_HOURS_STILL = "quiet_hours_still";
 
     private static final String KEY_QUIET_HOURS_DIM = "quiet_hours_dim";
 
+    private static final String KEY_QUIET_HOURS_HAPTIC = "quiet_hours_haptic";
+
+    private static final String KEY_QUIET_HOURS_NOTE = "quiet_hours_note";
+
     private static final String KEY_QUIET_HOURS_TIMERANGE = "quiet_hours_timerange";
 
     private CheckBoxPreference mQuietHoursEnabled;
 
-    private CheckBoxPreference mQuietHoursNotifications;
-    
-    private CheckBoxPreference mQuietHoursRinger;
+    private Preference mQuietHoursNote;
+
+    private CheckBoxPreference mQuietHoursMute;
 
     private CheckBoxPreference mQuietHoursStill;
 
     private CheckBoxPreference mQuietHoursDim;
+
+    private CheckBoxPreference mQuietHoursHaptic;
 
     private TimeRangePreference mQuietHoursTimeRange;
 
@@ -67,21 +71,27 @@ public class QuietHours extends SettingsPreferenceFragment implements
             PreferenceScreen prefSet = getPreferenceScreen();
 
             // Load the preferences
+            mQuietHoursNote = prefSet.findPreference(KEY_QUIET_HOURS_NOTE);
             mQuietHoursEnabled = (CheckBoxPreference) prefSet.findPreference(KEY_QUIET_HOURS_ENABLED);
             mQuietHoursTimeRange = (TimeRangePreference) prefSet.findPreference(KEY_QUIET_HOURS_TIMERANGE);
-            mQuietHoursNotifications = (CheckBoxPreference) prefSet.findPreference(KEY_QUIET_HOURS_NOTIFICATIONS);
-            mQuietHoursRinger = (CheckBoxPreference) prefSet.findPreference(KEY_QUIET_HOURS_RINGER);
+            mQuietHoursMute = (CheckBoxPreference) prefSet.findPreference(KEY_QUIET_HOURS_MUTE);
             mQuietHoursStill = (CheckBoxPreference) prefSet.findPreference(KEY_QUIET_HOURS_STILL);
+            mQuietHoursHaptic = (CheckBoxPreference) prefSet.findPreference(KEY_QUIET_HOURS_HAPTIC);
             mQuietHoursDim = (CheckBoxPreference) findPreference(KEY_QUIET_HOURS_DIM);
+
+            // Remove the "Incoming calls behaviour" note if the device does not support phone calls
+            if (mQuietHoursNote != null && getResources().getBoolean(com.android.internal.R.bool.config_voice_capable) == false) {
+                getPreferenceScreen().removePreference(mQuietHoursNote);
+            }
 
             // Set the preference state and listeners where applicable
             mQuietHoursEnabled.setChecked(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_ENABLED, 0) == 1);
             mQuietHoursTimeRange.setTimeRange(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_START, 0),
                     Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_END, 0));
             mQuietHoursTimeRange.setOnPreferenceChangeListener(this);
-            mQuietHoursNotifications.setChecked(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_NOTIFICATIONS, 0) == 1);
-            mQuietHoursRinger.setChecked(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_RINGER, 0) == 1);
+            mQuietHoursMute.setChecked(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_MUTE, 0) == 1);
             mQuietHoursStill.setChecked(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_STILL, 0) == 1);
+            mQuietHoursHaptic.setChecked(Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_HAPTIC, 0) == 1);
 
             // Remove the notification light setting if the device does not support it 
             if (mQuietHoursDim != null && getResources().getBoolean(com.android.internal.R.bool.config_intrusiveNotificationLed) == false) {
@@ -100,13 +110,9 @@ public class QuietHours extends SettingsPreferenceFragment implements
             Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_ENABLED,
                     mQuietHoursEnabled.isChecked() ? 1 : 0);
             return true;
-        } else if (preference == mQuietHoursNotifications) {
-            Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_NOTIFICATIONS,
-                    mQuietHoursNotifications.isChecked() ? 1 : 0);
-            return true;
-        } else if (preference == mQuietHoursRinger) {
-            Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_RINGER,
-                    mQuietHoursRinger.isChecked() ? 1 : 0);
+        } else if (preference == mQuietHoursMute) {
+            Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_MUTE,
+                    mQuietHoursMute.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mQuietHoursStill) {
             Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_STILL,
@@ -115,6 +121,10 @@ public class QuietHours extends SettingsPreferenceFragment implements
         } else if (preference == mQuietHoursDim) {
             Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_DIM,
                     mQuietHoursDim.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mQuietHoursHaptic) {
+            Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_HAPTIC,
+                    mQuietHoursHaptic.isChecked() ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
