@@ -4390,4 +4390,7 @@
     <string name="pref_volume_wake_title">Volume rocker wake</string>
     <string name="pref_volume_wake_summary">Pressing the volume rocker up/down will wake the device</string>
 
+    <!-- Launches Dev Tools -->
+    <string name="development_tools_title">Launch Tools</string>
+
 </resources>
