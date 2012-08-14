@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.INetworkManagementService;
@@ -106,7 +107,7 @@ public class Settings extends PreferenceActivity
             R.id.about_settings
     };
 
-    private boolean mEnableUserManagement = true;
+    private boolean mEnableUserManagement;
 
     // TODO: Update Call Settings based on airplane mode state.
 
@@ -122,10 +123,7 @@ public class Settings extends PreferenceActivity
             getWindow().setUiOptions(0);
         }
 
-        /* if (android.provider.Settings.Secure.getInt(getContentResolver(), "multiuser_enabled", -1)
-                > 0) {
-            mEnableUserManagement = true;
-        } */
+        mEnableUserManagement = getResources().getBoolean(R.bool.enable_user_management);
 
         mAuthenticatorHelper = new AuthenticatorHelper();
         mAuthenticatorHelper.updateAuthDescriptions(this);
