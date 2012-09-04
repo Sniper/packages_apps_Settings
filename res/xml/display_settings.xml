@@ -25,6 +25,12 @@
         android:dialogTitle="@string/brightness" />
 
     <PreferenceScreen
+        android:key="backlight_widget"
+        android:fragment="com.android.settings.Backlight"
+        android:title="@string/backlight_title"
+        android:summary="@string/backlight_summary" />
+
+    <PreferenceScreen
         android:key="display_rotation"
         android:fragment="com.android.settings.DisplayRotation"
         android:title="@string/display_rotation_title" />
