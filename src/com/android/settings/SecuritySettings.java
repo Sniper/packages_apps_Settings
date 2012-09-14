@@ -72,6 +72,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private static final String KEY_RESET_CREDENTIALS = "reset_credentials";
     private static final String KEY_TOGGLE_INSTALL_APPLICATIONS = "toggle_install_applications";
     private static final String KEY_POWER_INSTANTLY_LOCKS = "power_button_instantly_locks";
+    private static final String KEY_LOCK_BEFORE_UNLOCK = "lock_before_unlock";
 
     DevicePolicyManager mDPM;
 
@@ -433,6 +434,8 @@ public class SecuritySettings extends SettingsPreferenceFragment
             lockPatternUtils.setTactileFeedbackEnabled(isToggled(preference));
         } else if (KEY_POWER_INSTANTLY_LOCKS.equals(key)) {
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
+        } else if (KEY_LOCK_BEFORE_UNLOCK.equals(key)) {
+            lockPatternUtils.setLockBeforeUnlock(isToggled(preference));
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
