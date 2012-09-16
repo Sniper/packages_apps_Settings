@@ -4380,12 +4380,6 @@
 
     <!-- Themes settings #CM -->
     <string name="themes_settings_title">Themes</string>
-
-    <!-- EOS charging light strings -->
-    <string name="eos_display_charginglight">Enable the charging light</string>
-    <string name="eos_display_charging_light_location"></string>
-    <string name="eos_display_other">LED charging light settings</string>
-
     <string name="profile_write_nfc_tag">Write to NFC tag</string>
     <string name="profile_write_touch_tag">Touch tag to write</string>
     <string name="profile_write_success">Tag successfully written</string>

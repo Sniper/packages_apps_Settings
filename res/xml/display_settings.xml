@@ -85,8 +85,4 @@
         android:summary="@string/pref_volume_wake_summary"
         android:defaultValue="false" />
 
-    <CheckBoxPreference
-        android:key="eos_display_charginglight"
-        android:title="@string/eos_display_charginglight" />
-
 </PreferenceScreen>

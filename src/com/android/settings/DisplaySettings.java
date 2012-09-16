@@ -41,10 +41,6 @@ import com.android.internal.view.RotationPolicy;
 import com.android.settings.DreamSettings;
 import com.android.settings.DisplayRotation;
 import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class DisplaySettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -133,15 +129,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         disableUnusableTimeouts(mScreenTimeoutPreference);
         updateTimeoutPreferenceDescription(currentTimeout);
         updateDisplayRotationPreferenceDescription();
-
-        mEnableChargingLight = (CheckBoxPreference) findPreference("eos_display_charginglight");
-        if (!getActivity().getResources().getBoolean(R.bool.config_eos_display_charging_light))
-            ((PreferenceScreen) findPreference("eos_display_other"))
-                    .removePreference(mEnableChargingLight);
-        mEnableChargingLight.setOnPreferenceChangeListener(this);
-        File dataDirectory = getActivity().getDir("eos", Context.MODE_PRIVATE);
-        File chargingLightFile = new File (dataDirectory.getAbsolutePath() + File.separator + "charging_light");
-        mEnableChargingLight.setChecked(chargingLightFile.exists());
 
         mFontSizePref = (ListPreference) findPreference(KEY_FONT_SIZE);
         mFontSizePref.setOnPreferenceChangeListener(this);
@@ -402,23 +389,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 updateTimeoutPreferenceDescription(value);
             } catch (NumberFormatException e) {
                 Log.e(TAG, "could not persist screen timeout setting", e);
-            }
-        } else if (preference.equals(mEnableChargingLight)) {
-            Boolean valueB = (Boolean) objValue;
-            File dataDirectory = getActivity().getDir("eos", Context.MODE_PRIVATE);
-            File chargingLightFile = new File (dataDirectory.getAbsolutePath() + File.separator + "charging_light");
-            try {
-                if (valueB.booleanValue()){
-                    chargingLightFile.createNewFile();
-                }else {
-                    chargingLightFile.delete();
-                }
-                BufferedWriter writer = new BufferedWriter(new FileWriter(getActivity().getResources().getString(R.string.eos_display_charging_light_location)));
-                String output = "" + (valueB ? 0 : 1);
-                writer.write(output.toCharArray(), 0, output.toCharArray().length);
-                writer.close();
-            } catch (IOException e) {
-                return false;
             }
         }
         if (KEY_FONT_SIZE.equals(key)) {
