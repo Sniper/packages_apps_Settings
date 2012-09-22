@@ -4175,7 +4175,7 @@
 
     <!-- Strings for rom control and various other things -->
     <string name="quick_links_title">Device control</string>
-    <string name="rom_control_title">BAKED ROM Control</string>
+    <string name="rom_control_title">BAKED rom control</string>
 
     <string name="mod_version">BAKED version</string>
     <string name="mod_version_default">Unknown</string>
