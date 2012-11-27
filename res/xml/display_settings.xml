@@ -15,7 +15,6 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-        android:key="eos_display_other"
         android:title="@string/display_settings"
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
@@ -57,7 +56,7 @@
         android:title="@string/screensaver_settings_title"
         android:fragment="com.android.settings.DreamSettings" />
 
-    <ListPreference
+        <com.android.settings.WarnedListPreference
         android:key="font_size"
         android:title="@string/title_font_size"
         android:summary="@string/summary_font_size"
@@ -79,10 +78,10 @@
         android:key="category_wakeup_options"
         android:title="@string/display_category_wakeup_options_title"/>
 
-    <CheckBoxPreference
-        android:key="pref_volume_wake"
-        android:title="@string/pref_volume_wake_title"
-        android:summary="@string/pref_volume_wake_summary"
-        android:defaultValue="false" />
+
+        <PreferenceScreen
+                android:key="wifi_display"
+                android:title="@string/wifi_display_settings_title"
+                android:fragment="com.android.settings.wfd.WifiDisplaySettings" />
 
 </PreferenceScreen>

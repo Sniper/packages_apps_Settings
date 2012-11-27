@@ -434,6 +434,7 @@ public class ChooseLockPattern extends PreferenceActivity {
          * @param stage
          */
         protected void updateStage(Stage stage) {
+            final Stage previousStage = mUiStage;
 
             mUiStage = stage;
 
@@ -498,6 +499,12 @@ public class ChooseLockPattern extends PreferenceActivity {
                 case ChoiceConfirmed:
                     break;
             }
+
+            // If the stage changed, announce the header for accessibility. This
+            // is a no-op when accessibility is disabled.
+            if (previousStage != stage) {
+                mHeaderText.announceForAccessibility(mHeaderText.getText());
+            }
         }
 
 
@@ -520,7 +527,6 @@ public class ChooseLockPattern extends PreferenceActivity {
 
             if (lockVirgin) {
                 utils.setVisiblePatternEnabled(true);
-                utils.setTactileFeedbackEnabled(false);
             }
 
             getActivity().setResult(RESULT_FINISHED);
