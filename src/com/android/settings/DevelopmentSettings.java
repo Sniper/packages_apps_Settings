@@ -700,7 +700,7 @@ public class DevelopmentSettings extends PreferenceFragment
             if (flinger != null) {
                 Parcel data = Parcel.obtain();
                 data.writeInterfaceToken("android.ui.ISurfaceComposer");
-                final int showUpdates = mShowScreenUpdates.isChecked() ? 1 : 0; 
+                final int showUpdates = mShowScreenUpdates.isChecked() ? 1 : 0;
                 data.writeInt(showUpdates);
                 flinger.transact(1002, data, null, 0);
                 data.recycle();
@@ -717,7 +717,7 @@ public class DevelopmentSettings extends PreferenceFragment
             if (flinger != null) {
                 Parcel data = Parcel.obtain();
                 data.writeInterfaceToken("android.ui.ISurfaceComposer");
-                final int disableOverlays = mDisableOverlays.isChecked() ? 1 : 0; 
+                final int disableOverlays = mDisableOverlays.isChecked() ? 1 : 0;
                 data.writeInt(disableOverlays);
                 flinger.transact(1008, data, null, 0);
                 data.recycle();
@@ -731,7 +731,7 @@ public class DevelopmentSettings extends PreferenceFragment
     private void updateHardwareUiOptions() {
         updateCheckBox(mForceHardwareUi, SystemProperties.getBoolean(HARDWARE_UI_PROPERTY, false));
     }
-    
+
     private void writeHardwareUiOptions() {
         SystemProperties.set(HARDWARE_UI_PROPERTY, mForceHardwareUi.isChecked() ? "true" : "false");
         pokeSystemProperties();
@@ -1090,12 +1090,12 @@ public class DevelopmentSettings extends PreferenceFragment
                     mAdbNotify.isChecked() ? 1 : 0);
         } else if (preference == mBugreportInPower) {
             Settings.Secure.putInt(getActivity().getContentResolver(),
-                    Settings.Secure.BUGREPORT_IN_POWER_MENU, 
+                    Settings.Secure.BUGREPORT_IN_POWER_MENU,
                     mBugreportInPower.isChecked() ? 1 : 0);
         } else if (preference == mKeepScreenOn) {
             Settings.Global.putInt(getActivity().getContentResolver(),
                     Settings.Global.STAY_ON_WHILE_PLUGGED_IN,
-                    mKeepScreenOn.isChecked() ? 
+                    mKeepScreenOn.isChecked() ?
                     (BatteryManager.BATTERY_PLUGGED_AC | BatteryManager.BATTERY_PLUGGED_USB) : 0);
         } else if (preference == mEnforceReadExternal) {
             if (mEnforceReadExternal.isChecked()) {
@@ -1207,6 +1207,7 @@ public class DevelopmentSettings extends PreferenceFragment
             } else {
                 // Reset the toggle
                 mEnableAdb.setChecked(false);
+            }
 
         } else if (dialog == mAdbTcpDialog) {
             if (which == DialogInterface.BUTTON_POSITIVE) {

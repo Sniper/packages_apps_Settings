@@ -3863,11 +3863,7 @@
     <string name="sync_calendar">Calendar</string>
     <!-- Data synchronization settings screen, checkbox setting option name -->
     <string name="sync_contacts">Contacts</string>
-    <!-- Message introducing the user t
-=======
-    <string name="enable_adb_summary">Debug mode when USB is connected</string>
-    <!-- [CHAR LIMIT=NONE] Setting checkbox title for Whether to include bug report item in power menu. -->
-   o Google Sync. -->
+    <!-- Message introducing the user to Google Sync. -->
     <string name="sync_plug"><font fgcolor="#ffffffff">Welcome to Google sync!</font>
     \nA Google approach to syncing data to allow access to your contacts, appointments, and more from wherever you are.
     </string>
