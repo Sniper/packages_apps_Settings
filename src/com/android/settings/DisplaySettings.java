@@ -80,24 +80,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mVolumeWake;
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
-
-
-    private CheckBoxPreference mAccelerometer;
-    private ListPreference mFontSizePref;
-
-    private DisplayManager mDisplayManager;
-
     private CheckBoxPreference mAccelerometer;
     private WarnedListPreference mFontSizePref;
-    private CheckBoxPreference mNotificationPulse;
-
-
+    private DisplayManager mDisplayManager;
     private CheckBoxPreference mEnableChargingLight;
-    private final Configuration mCurConfig = new Configuration();
-
     private ListPreference mScreenTimeoutPreference;
     private Preference mScreenSaverPreference;
     private PreferenceScreen mDisplayRotationPreference;
+
+    private final Configuration mCurConfig = new Configuration();
 
     private ContentObserver mAccelerometerRotationObserver =
             new ContentObserver(new Handler()) {
@@ -308,7 +299,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
         return indices.length-1;
     }
-    
+
     public void readFontSizePreference(ListPreference pref) {
         try {
             mCurConfig.updateFrom(ActivityManagerNative.getDefault().getConfiguration());
@@ -344,7 +335,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mBatteryPulse.setSummary(getString(R.string.notification_light_disabled));
         }
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();

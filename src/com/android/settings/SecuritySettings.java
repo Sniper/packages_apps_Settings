@@ -30,7 +30,6 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.UserInfo;
 import android.os.Bundle;
 import android.os.UserHandle;
-import android.os.UserId;
 import android.os.UserManager;
 import android.os.Vibrator;
 import android.preference.CheckBoxPreference;

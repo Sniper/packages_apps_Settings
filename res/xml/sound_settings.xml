@@ -51,12 +51,6 @@
             android:fragment="com.android.settings.QuietHours"
             android:title="@string/quiet_hours_title" />
 
-    <CheckBoxPreference
-            android:key="safe_headset_restore"
-            android:title="@string/safe_headset_restore_title"
-            android:summary="@string/safe_headset_restore_summary"
-            android:defaultValue="true" />
-
     <PreferenceCategory
             android:key="category_calls_and_notification"
             android:title="@string/sound_category_call_ringtone_vibrate_title"/>
@@ -112,12 +106,6 @@
             android:summary="@string/volbtn_music_controls_summary"
             android:persistent="false" />
 
-    <CheckBoxPreference
-            android:key="volume_adjust_sounds"
-            android:title="@string/volume_adjust_sounds_enable_title"
-            android:summary="@string/volume_adjust_sounds_enable_summary"
-            android:persistent="true" />
-    
     <CheckBoxPreference
             android:key="camera_sounds"
             android:title="@string/camera_sounds_title"

@@ -20,6 +20,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -77,11 +80,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_CATEGORY_CALLS = "category_calls_and_notification";
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLBTN_MUSIC_CTRL = "volbtn_music_controls";
-    private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
     private static final String SILENT_MODE_OFF = "off";
     private static final String SILENT_MODE_VIBRATE = "vibrate";
     private static final String SILENT_MODE_MUTE = "mute";
-    private static final String KEY_VOLUME_ADJUST_SOUNDS = "volume_adjust_sounds";
     private static final String KEY_DOCK_CATEGORY = "dock_category";
     private static final String KEY_DOCK_AUDIO_SETTINGS = "dock_audio";
     private static final String KEY_DOCK_SOUNDS = "dock_sounds";
@@ -103,7 +104,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDtmfTone;
     private CheckBoxPreference mSoundEffects;
     private CheckBoxPreference mHapticFeedback;
-    private CheckBoxPreference mVolumeAdjustSounds;
     private CheckBoxPreference mCameraSounds;
     private Preference mMusicFx;
     private CheckBoxPreference mLockSounds;
@@ -111,7 +111,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mRingtonePreference;
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
-    private CheckBoxPreference mSafeHeadsetRestore;
 
     private Runnable mRingtoneLookupRunnable;
     private AudioManager mAudioManager;
@@ -119,15 +118,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDockSounds;
     private Intent mDockIntent;
     private CheckBoxPreference mDockAudioMediaEnabled;
-
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(AudioManager.RINGER_MODE_CHANGED_ACTION)) {
-                updateState(false);
-            }
-        }
-    };
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -147,6 +137,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_DOCK_EVENT)) {
                 handleDockChange(intent);
+            } else if (intent.getAction().equals(AudioManager.RINGER_MODE_CHANGED_ACTION)) {
+                updateState(false);
             }
         }
     };
@@ -186,18 +178,13 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mQuietHours = (PreferenceScreen) findPreference(KEY_QUIET_HOURS);
         if (Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_ENABLED, 0) == 1) {
-            mQuietHours.setSummary(getString(R.string.quiet_hours_active_from) + " " + 
-                    returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_START)) 
+            mQuietHours.setSummary(getString(R.string.quiet_hours_active_from) + " " +
+                    returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_START))
                     + " " + getString(R.string.quiet_hours_active_to) + " " +
                     returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_END)));
         } else {
             mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
         }
-
-        mSafeHeadsetRestore = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_RESTORE);
-        mSafeHeadsetRestore.setPersistent(false);
-        mSafeHeadsetRestore.setChecked(Settings.System.getInt(resolver,
-                Settings.System.SAFE_HEADSET_VOLUME_RESTORE, 1) != 0);
 
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(KEY_VIBRATE);
         mVibrateWhenRinging.setPersistent(false);
@@ -217,16 +204,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mHapticFeedback.setChecked(Settings.System.getInt(resolver,
                 Settings.System.HAPTIC_FEEDBACK_ENABLED, 1) != 0);
 
-        mVolumeAdjustSounds = (CheckBoxPreference) findPreference(KEY_VOLUME_ADJUST_SOUNDS);
-        mVolumeAdjustSounds.setPersistent(false);
-        mVolumeAdjustSounds.setChecked(Settings.System.getInt(resolver,
-                Settings.System.VOLUME_ADJUST_SOUNDS_ENABLED, 1) != 0);
-
         mCameraSounds = (CheckBoxPreference) findPreference(KEY_CAMERA_SOUNDS);
         mCameraSounds.setPersistent(false);
         mCameraSounds.setChecked(SystemProperties.getBoolean(
                 PROP_CAMERA_SOUND, true));
-        
+
         mLockSounds = (CheckBoxPreference) findPreference(KEY_LOCK_SOUNDS);
         mLockSounds.setPersistent(false);
         mLockSounds.setChecked(Settings.System.getInt(resolver,
@@ -304,7 +286,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         lookupRingtoneNames();
 
         IntentFilter filter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
-        IntentFilter filter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
+        getActivity().registerReceiver(mReceiver, filter);
+
+        filter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
         getActivity().registerReceiver(mReceiver, filter);
     }
 
@@ -410,10 +394,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED,
                     mHapticFeedback.isChecked() ? 1 : 0);
 
-        } else if (preference == mVolumeAdjustSounds) {
-            Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ADJUST_SOUNDS_ENABLED ,
-                    mVolumeAdjustSounds.isChecked() ? 1 : 0);
-
         } else if (preference == mCameraSounds) {
             SystemProperties.set(PROP_CAMERA_SOUND, mCameraSounds.isChecked() ? "1" : "0");
 
@@ -425,12 +405,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             // let the framework fire off the intent
             return false;
 
-        } else if (preference == mSafeHeadsetRestore) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.SAFE_HEADSET_VOLUME_RESTORE,
-                    mSafeHeadsetRestore.isChecked() ? 1 : 0);
-
-		} else if (preference == mVolBtnMusicCtrl) {
+        } else if (preference == mVolBtnMusicCtrl) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLBTN_MUSIC_CONTROLS,
                     mVolBtnMusicCtrl.isChecked() ? 1 : 0);
 
@@ -464,6 +439,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mDockAudioMediaEnabled) {
             Settings.Global.putInt(getContentResolver(), Settings.Global.DOCK_AUDIO_MEDIA_ENABLED,
                     mDockAudioMediaEnabled.isChecked() ? 1 : 0);
+        } else {
+            // If we didn't handle it, let preferences handle it.
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
         return true;
     }
@@ -489,6 +467,22 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         }
 
         return true;
+    }
+
+    private String returnTime(String t) {
+        if (t == null || t.equals("")) {
+            return "";
+        }
+        int hr = Integer.parseInt(t.trim());
+        int mn = hr;
+
+        hr = hr / 60;
+        mn = mn % 60;
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, hr);
+        cal.set(Calendar.MINUTE, mn);
+        Date date = cal.getTime();
+        return DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(date);
     }
 
     @Override

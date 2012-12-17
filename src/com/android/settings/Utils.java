@@ -58,25 +58,26 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.DisplayInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TabWidget;
 
+import com.android.settings.users.ProfileUpdateReceiver;
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-
-import com.android.settings.users.ProfileUpdateReceiver;
 
 public class Utils {
 
@@ -487,6 +488,43 @@ public class Utils {
         }
     }
 
+    public static boolean fileExists(String filename) {
+        return new File(filename).exists();
+    }
+
+    public static String fileReadOneLine(String fname) {
+        BufferedReader br;
+        String line = null;
+
+        try {
+            br = new BufferedReader(new FileReader(fname), 512);
+            try {
+                line = br.readLine();
+            } finally {
+                br.close();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "IO Exception when reading /sys/ file", e);
+        }
+        return line;
+    }
+
+    public static boolean fileWriteOneLine(String fname, String value) {
+        try {
+            FileWriter fw = new FileWriter(fname);
+            try {
+                fw.write(value);
+            } finally {
+                fw.close();
+            }
+        } catch (IOException e) {
+            String Error = "Error writing to " + fname + ". Exception: ";
+            Log.e(TAG, Error, e);
+            return false;
+        }
+        return true;
+    }
+
     /* Used by UserSettings as well. Call this on a non-ui thread. */
     public static boolean copyMeProfilePhoto(Context context, UserInfo user) {
         Uri contactUri = Profile.CONTENT_URI;
@@ -604,49 +642,13 @@ public class Utils {
                 .getUsers().size() > 1;
     }
 
-    public static boolean fileExists(String filename) {
-        return new File(filename).exists();
-    }
-
-    public static String fileReadOneLine(String fname) {
-        BufferedReader br;
-        String line = null;
-
-        try {
-            br = new BufferedReader(new FileReader(fname), 512);
-            try {
-                line = br.readLine();
-            } finally {
-                br.close();
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "IO Exception when reading /sys/ file", e);
-        }
-        return line;
-    }
-
-    public static boolean fileWriteOneLine(String fname, String value) {
-        try {
-            FileWriter fw = new FileWriter(fname);
-            try {
-                fw.write(value);
-            } finally {
-                fw.close();
-            }
-        } catch (IOException e) {
-            String Error = "Error writing to " + fname + ". Exception: ";
-            Log.e(TAG, Error, e);
-            return false;
-        }
-        return true;
-    }
-
     private static int getScreenType(Context con) {
         if (mDeviceType == -1) {
             WindowManager wm = (WindowManager)con.getSystemService(Context.WINDOW_SERVICE);
-            android.view.Display display = wm.getDefaultDisplay();
-            int shortSize = Math.min(display.getRawHeight(), display.getRawWidth());
-            int shortSizeDp = shortSize * DisplayMetrics.DENSITY_DEFAULT / DisplayMetrics.DENSITY_DEVICE;
+            DisplayInfo outDisplayInfo = new DisplayInfo();
+            wm.getDefaultDisplay().getDisplayInfo(outDisplayInfo);
+            int shortSize = Math.min(outDisplayInfo.logicalHeight, outDisplayInfo.logicalWidth);
+            int shortSizeDp = shortSize * DisplayMetrics.DENSITY_DEFAULT / outDisplayInfo.logicalDensityDpi;
             if (shortSizeDp < 600) {
                 // 0-599dp: "phone" UI with a separate status & navigation bar
                 mDeviceType =  DEVICE_PHONE;
@@ -672,5 +674,4 @@ public class Utils {
     public static boolean isTablet(Context con) {
         return getScreenType(con) == DEVICE_TABLET;
     }
-
 }

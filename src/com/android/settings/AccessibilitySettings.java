@@ -176,7 +176,6 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
 
     private CheckBoxPreference mToggleLargeTextPreference;
     private CheckBoxPreference mTogglePowerButtonEndsCallPreference;
-    private CheckBoxPreference mToggleHomeButtonAnswersCallPreference;
     private CheckBoxPreference mToggleLockScreenRotationPreference;
     private CheckBoxPreference mToggleSpeakPasswordPreference;
     private ListPreference mSelectLongPressTimeoutPreference;
@@ -228,7 +227,7 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         }
         return false;
     }
-    
+
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (mToggleLargeTextPreference == preference) {
@@ -236,9 +235,6 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
             return true;
         } else if (mTogglePowerButtonEndsCallPreference == preference) {
             handleTogglePowerButtonEndsCallPreferenceClick();
-            return true;
-        } else if (mToggleHomeButtonAnswersCallPreference == preference) {
-            handleToggleHomeButtonAnswersCallPreferenceClick();
             return true;
         } else if (mToggleLockScreenRotationPreference == preference) {
             handleLockScreenRotationPreferenceClick();
@@ -518,7 +514,7 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
                 Settings.Secure.ACCESSIBILITY_DISPLAY_MAGNIFICATION_ENABLED, 0) == 1;
         if (magnificationEnabled) {
             mDisplayMagnificationPreferenceScreen.setSummary(
-                    R.string.accessibility_feature_state_on);            
+                    R.string.accessibility_feature_state_on);
         } else {
             mDisplayMagnificationPreferenceScreen.setSummary(
                     R.string.accessibility_feature_state_off);

@@ -72,7 +72,6 @@
         android:key="category_wakeup_options"
         android:title="@string/display_category_wakeup_options_title"/>
 
-
         <PreferenceScreen
                 android:key="wifi_display"
                 android:title="@string/wifi_display_settings_title"

@@ -16,19 +16,11 @@
 
 package com.android.settings;
 
-import com.android.internal.util.ArrayUtils;
-import com.android.settings.ChooseLockGeneric.ChooseLockGenericFragment;
-import com.android.settings.accounts.AccountSyncSettings;
-import com.android.settings.accounts.AuthenticatorHelper;
-import com.android.settings.accounts.ManageAccountsSettings;
-import com.android.settings.applications.InstalledAppDetails;
-import com.android.settings.applications.ManageApplications;
-import com.android.settings.bluetooth.BluetoothEnabler;
-import com.android.settings.deviceinfo.Memory;
-import com.android.settings.fuelgauge.PowerUsageSummary;
-import com.android.settings.profiles.ProfileEnabler;
-import com.android.settings.vpn2.VpnSettings;
-import com.android.settings.wifi.WifiEnabler;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -64,11 +56,19 @@ import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import com.android.internal.util.ArrayUtils;
+import com.android.settings.ChooseLockGeneric.ChooseLockGenericFragment;
+import com.android.settings.accounts.AccountSyncSettings;
+import com.android.settings.accounts.AuthenticatorHelper;
+import com.android.settings.accounts.ManageAccountsSettings;
+import com.android.settings.applications.InstalledAppDetails;
+import com.android.settings.applications.ManageApplications;
+import com.android.settings.bluetooth.BluetoothEnabler;
+import com.android.settings.deviceinfo.Memory;
+import com.android.settings.fuelgauge.PowerUsageSummary;
+import com.android.settings.profiles.ProfileEnabler;
+import com.android.settings.vpn2.VpnSettings;
+import com.android.settings.wifi.WifiEnabler;
 
 /**
  * Top-level settings activity to handle single pane and double pane UI layout.
