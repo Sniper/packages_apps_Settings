@@ -61,8 +61,8 @@
     <!-- Quick Links -->
     <header android:title="@string/quick_links_title" />
 
-    <header android:icon="@drawable/ic_settings_baked_rom_control"
-            android:title="@string/rom_control_title">
+    <header android:icon="@drawable/ic_settings_baked"
+            android:title="@string/baked_settings_title">
         <intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="com.baked.romcontrol.ROMControlActivity"
