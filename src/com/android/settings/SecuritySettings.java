@@ -256,7 +256,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
         // Sms Security limit
         boolean isTelephony = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
         if (isTelephony) {
-            addPreferenceFromResource(R.xml.security_settings_app);
+            addPreferencesFromResource(R.xml.security_settings_app);
             mSmsSecurityCheck = (ListPreference) root.findPreference(KEY_SMS_SECURITY_CHECK_PREF);
             mSmsSecurityCheck.setOnPreferenceChangeListener(this);
             int smsSecurityCheck = Integer.valueOf(mSmsSecurityCheck.getValue());
@@ -313,6 +313,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private void updateSmsSecuritySummary(int i) {
         String message = getString(R.string.sms_security_check_limit_summary, i);
         mSmsSecurityCheck.setSummary(message);
+    }
 
     private boolean isVerifyAppsEnabled() {
         return Settings.Global.getInt(getContentResolver(),
@@ -514,8 +515,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
             lockPatternUtils.setTactileFeedbackEnabled(isToggled(preference));
         } else if (KEY_POWER_INSTANTLY_LOCKS.equals(key)) {
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
-        } else if (KEY_LOCK_BEFORE_UNLOCK.equals(key)) {
-            lockPatternUtils.setLockBeforeUnlock(isToggled(preference));
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
@@ -578,6 +577,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
             Settings.Secure.putInt(getContentResolver(), Settings.Global.SMS_OUTGOING_CHECK_MAX_COUNT,
                     smsSecurityCheck);
             updateSmsSecuritySummary(smsSecurityCheck);
+        }
         return true;
     }
 
