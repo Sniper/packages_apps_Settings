@@ -74,12 +74,6 @@
             android:summary="@string/adb_notify_summary"
             android:dependency="enable_adb"/>
 
-        <CheckBoxPreference
-            android:key="adb_over_network"
-            android:title="@string/adb_over_network"
-            android:summary="@string/adb_over_network_summary"
-            android:dependency="enable_adb"/>
-
         <com.android.settings.HostnamePreference
             android:key="device_hostname"
             android:title="@string/device_hostname"
