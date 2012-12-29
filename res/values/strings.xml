@@ -4676,9 +4676,6 @@
     <string name="profile_add_nfc_text">This NFC tag refers to an unknown profile. Attaching this NFC tag to an existing profile will allow for selecting the profile in the future.</string>
     <string name="profile_select">Select profile</string>
 
-    <!-- Trebuchet launcher settings -->
-    <string name="launcher_settings_title">Trebuchet</string>
-
     <!-- Display : Rotation  -->
     <string name="display_rotation_title">Rotation</string>
     <string name="display_rotation_enabled">Enabled.</string>
