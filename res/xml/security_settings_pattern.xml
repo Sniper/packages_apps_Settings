@@ -63,9 +63,9 @@
             android:title="@string/owner_info_settings_title"
             android:summary="@string/owner_info_settings_summary"/>
 
-        <CheckBoxPreference
+        <!-- <CheckBoxPreference
             android:key="lock_before_unlock"
-            android:title="@string/lockpattern_settings_enable_lock_before_unlock"/>
+            android:title="@string/lockpattern_settings_enable_lock_before_unlock"/> -->
 
     </PreferenceCategory>
 
