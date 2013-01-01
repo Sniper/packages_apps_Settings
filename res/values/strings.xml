@@ -4689,8 +4689,6 @@
 
     <!-- Wakeup options -->
     <string name="display_category_wakeup_options_title">Wakeup options</string>
-    <string name="pref_volume_wake_title">Volume rocker wake</string>
-    <string name="pref_volume_wake_summary">Pressing the volume rocker up/down will wake the device</string>
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Launch Tools</string>
@@ -4723,8 +4721,6 @@
 
     <!-- Sound settings screen -->
     <string name="volume_overlay_title">Volume panel style</string>
-    <string name="volbtn_music_controls_title">Volume rocker music controls</string>
-    <string name="volbtn_music_controls_summary">When screen off, long-pressing the volume rockers will seek music tracks</string>
     <string name="volume_ring_only_description">Ringtones</string>
     <string name="ring_mode_title">Ring mode</string>
     <string name="ring_mode_normal">Normal</string>
