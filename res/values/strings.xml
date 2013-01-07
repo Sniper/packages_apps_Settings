@@ -4471,7 +4471,7 @@
     <string name="mod_version">BAKED rom version</string>
     <string name="mod_version_default">Unknown</string>
 
-        <!-- Quiet hours #CM -->
+    <!-- Quiet hours #CM -->
     <string name="quiet_hours_title">Quiet hours</string>
     <string name="quiet_hours_summary">Configure the hours the device should be quiet</string>
     <string name="quiet_hours_note_title">Note</string>
@@ -4717,6 +4717,7 @@
     <string name="link_volume_ringtones">Link ringtone + notification volume</string>
     <string name="link_volume_ringtones_toast">Make sure to change your volume to re-set your notification volume to match your ringtone volume.</string>
     <string name="link_volume_mutes">Link ringtone + notification mutes</string>
+    <string name="safe_headset_volume_title">Safe headset volume</string>
 
     <!-- Sound settings screen -->
     <string name="volume_overlay_title">Volume panel style</string>
