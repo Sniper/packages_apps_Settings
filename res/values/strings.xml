@@ -1238,7 +1238,6 @@
     <string name="nfc_polling_mode_screen_locked">Screen on, locked</string>
     <string name="nfc_polling_mode_screen_unlocked">Screen on, unlocked (default)</string>
 
-
     <!-- Network service discovery settings -->
     <!-- Used in the 1st-level settings screen to turn on NSD -->
     <string name="nsd_quick_toggle_title">Network service discovery</string>
