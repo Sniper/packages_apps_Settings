@@ -4516,6 +4516,10 @@
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_restore_title">Safe headset volume</string>
     <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
+    
+    <!-- convert sound to vibration toggle -->
+    <string name="notification_convert_sound_to_vibration_title">Notification conversion</string>
+    <string name="notification_convert_sound_to_vibration_summary">Sounds to vibrations during vibrate mode</string>
 
     <string name="ok">OK</string>
 
