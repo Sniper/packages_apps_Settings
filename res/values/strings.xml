@@ -4735,7 +4735,6 @@
     <string name="link_volume_ringtones">Link ringtone + notification volume</string>
     <string name="link_volume_ringtones_toast">Make sure to change your volume to re-set your notification volume to match your ringtone volume.</string>
     <string name="link_volume_mutes">Link ringtone + notification mutes</string>
-    <string name="safe_headset_volume_title">Safe headset volume</string>
 
     <!-- Sound settings screen -->
     <string name="volume_overlay_title">Volume panel style</string>
@@ -4756,5 +4755,9 @@
     <string name="volume_key_cursor_control_off">Disabled</string>
     <string name="volume_key_cursor_control_on">Volume up/down moves cursor left/right</string>
     <string name="volume_key_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
+
+    <!-- Safe headset volume restore checkbox -->
+    <string name="safe_headset_volume_title">Safe headset volume</string>
+    <string name="safe_headset_volume_summary">Prevent loud volume levels when headset is first plugged in</string>
 
 </resources>

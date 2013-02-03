@@ -192,6 +192,13 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
         }
 
+        mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
+        mSafeHeadsetVolume.setPersistent(false);
+        boolean safeMediaVolumeEnabled = getResources().getBoolean(
+                com.android.internal.R.bool.config_safe_media_volume_enabled);
+        mSafeHeadsetVolume.setChecked(Settings.System.getInt(resolver,
+                Settings.System.SAFE_HEADSET_VOLUME, safeMediaVolumeEnabled ? 1 : 0) != 0);
+
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(KEY_VIBRATE);
         mVibrateWhenRinging.setPersistent(false);
         mVibrateWhenRinging.setChecked(Settings.System.getInt(resolver,
@@ -214,23 +221,18 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mLockSounds.setChecked(Settings.System.getInt(resolver,
                 Settings.System.LOCKSCREEN_SOUNDS_ENABLED, 1) != 0);
 
+        mHeadsetConnectPlayer = (CheckBoxPreference) findPreference(KEY_HEADSET_CONNECT_PLAYER);
+        mHeadsetConnectPlayer.setChecked(Settings.System.getInt(resolver,
+                Settings.System.HEADSET_CONNECT_PLAYER, 0) != 0);
+
         mConvertSoundToVibration = (CheckBoxPreference) findPreference(KEY_CONVERT_SOUND_TO_VIBRATE);
 
         mConvertSoundToVibration.setPersistent(false);
         mConvertSoundToVibration.setChecked(Settings.System.getInt(resolver,
                 Settings.System.NOTIFICATION_CONVERT_SOUND_TO_VIBRATION, 1) != 0);
 
-        mHeadsetConnectPlayer = (CheckBoxPreference) findPreference(KEY_HEADSET_CONNECT_PLAYER);
-        mHeadsetConnectPlayer.setChecked(Settings.System.getInt(resolver,
-                Settings.System.HEADSET_CONNECT_PLAYER, 0) != 0);
-
         mRingtonePreference = findPreference(KEY_RINGTONE);
         mNotificationPreference = findPreference(KEY_NOTIFICATION_SOUND);
-
-        mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
-        mSafeHeadsetVolume.setPersistent(false);
-        mSafeHeadsetVolume.setChecked(Settings.System.getBoolean(resolver,
-                Settings.System.MANUAL_SAFE_MEDIA_VOLUME, true));
 
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (vibrator == null || !vibrator.hasVibrator()) {
@@ -304,13 +306,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         filter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
         getActivity().registerReceiver(mReceiver, filter);
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         getActivity().unregisterReceiver(mReceiver);
     }
 
@@ -392,6 +392,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         if (preference == mVibrateWhenRinging) {
             Settings.System.putInt(getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING,
                     mVibrateWhenRinging.isChecked() ? 1 : 0);
+
         } else if (preference == mDtmfTone) {
             Settings.System.putInt(getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING,
                     mDtmfTone.isChecked() ? 1 : 0);
@@ -413,9 +414,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SOUNDS_ENABLED,
                     mLockSounds.isChecked() ? 1 : 0);
 
-        } else if (preference == mSafeHeadsetVolume) {
-            Settings.System.putBoolean(getContentResolver(), Settings.System.MANUAL_SAFE_MEDIA_VOLUME,
-                    mSafeHeadsetVolume.isChecked());
         } else if (preference == mConvertSoundToVibration) {
             Settings.System.putInt(getContentResolver(), Settings.System.NOTIFICATION_CONVERT_SOUND_TO_VIBRATION,
                     mConvertSoundToVibration.isChecked() ? 1 : 0);
@@ -448,15 +446,22 @@ public class SoundSettings extends SettingsPreferenceFragment implements
                     super.onPreferenceTreeClick(ps, ps);
                 }
             }
+
         } else if (preference == mDockSounds) {
             Settings.Global.putInt(getContentResolver(), Settings.Global.DOCK_SOUNDS_ENABLED,
                     mDockSounds.isChecked() ? 1 : 0);
+
         } else if (preference == mDockAudioMediaEnabled) {
             Settings.Global.putInt(getContentResolver(), Settings.Global.DOCK_AUDIO_MEDIA_ENABLED,
                     mDockAudioMediaEnabled.isChecked() ? 1 : 0);
         } else if (preference == mHeadsetConnectPlayer) {
             Settings.System.putInt(getContentResolver(), Settings.System.HEADSET_CONNECT_PLAYER,
                     mHeadsetConnectPlayer.isChecked() ? 1 : 0);
+
+        } else if (preference == mSafeHeadsetVolume) {
+            Settings.System.putInt(getContentResolver(), Settings.System.SAFE_HEADSET_VOLUME,
+                    mSafeHeadsetVolume.isChecked() ? 1 : 0);
+
         } else {
             // If we didn't handle it, let preferences handle it.
             return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -474,8 +479,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             } catch (NumberFormatException e) {
                 Log.e(TAG, "could not persist emergency tone setting", e);
             }
+
         } else if (preference == mRingMode) {
             setPhoneRingModeValue(objValue.toString());
+
         } else if (preference == mVolumeOverlay) {
             final int value = Integer.valueOf((String) objValue);
             final int index = mVolumeOverlay.findIndexOfValue((String) objValue);
