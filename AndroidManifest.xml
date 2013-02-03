@@ -1439,6 +1439,8 @@
             android:theme="@style/CryptKeeperBlankTheme"
         />
 
+	<activity android:name=".PerformanceSettings" />
+
         <activity android:name=".profiles.ProfilesSettings" />
         <activity android:name="Settings$ProfilesSettingsActivity"
                 android:label="@string/profile_settings"
