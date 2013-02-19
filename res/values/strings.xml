@@ -3715,6 +3715,10 @@
          [CHAR LIMIT=40] -->
     <string name="sound_category_system_title">System</string>
 
+    <!-- Category title for headset specific Settings.
+         [CHAR LIMIT=40] -->
+    <string name="headset_category_title">Headset</string>
+
     <!-- Wifi Setup For Setup Wizard with XL screen -->
     <!-- Title shown in Wifi Setup Wizard with XL screen -->
     <string name="wifi_setup_title">Wi-Fi setup</string>
@@ -4516,7 +4520,7 @@
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_restore_title">Safe headset volume</string>
     <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
-    
+
     <!-- convert sound to vibration toggle -->
     <string name="notification_convert_sound_to_vibration_title">Notification conversion</string>
     <string name="notification_convert_sound_to_vibration_summary">Sounds to vibrations during vibrate mode</string>
@@ -4766,8 +4770,7 @@
 
     <!-- Display : Rotation  -->
     <string name="display_rotation_title">Rotation</string>
-    <string name="display_rotation_enabled">Enabled.</string>
-    <string name="display_rotation_disabled">Disabled.</string>
+    <string name="display_rotation_disabled">Disabled</string>
     <string name="display_rotation_unit">degrees</string>
     <string name="display_rotation_category_title">Rotation modes</string>
     <string name="display_rotation_0_title">0 degrees</string>
@@ -4840,7 +4843,6 @@
     <string name="link_volume_ringtones">Link ringtone + notification volume</string>
     <string name="link_volume_ringtones_toast">Make sure to change your volume to re-set your notification volume to match your ringtone volume.</string>
     <string name="link_volume_mutes">Link ringtone + notification mutes</string>
-    <string name="safe_headset_volume_title">Safe headset volume</string>
 
     <!-- Sound settings screen -->
     <string name="volume_overlay_title">Volume panel style</string>
@@ -4853,7 +4855,7 @@
     <!--- Sms security limit -->
     <string name="app_security_title">App security</string>
     <string name="sms_security_check_limit_title">SMS message limit</string>
-    <string name="sms_security_check_limit_summary">Display an alert dialog to prevent applications from sending SMS messages too frequently. Current limit: %d messages in 15 minutes</string>
+    <string name="sms_security_check_limit_summary">Apps can send %d messages in 30 minutes before requiring confirmation</string>
     <string name="sms_security_check_limit_default">30 (Default)</string>
 
     <!--- Volume key cursor control -->
@@ -4861,5 +4863,14 @@
     <string name="volume_key_cursor_control_off">Disabled</string>
     <string name="volume_key_cursor_control_on">Volume up/down moves cursor left/right</string>
     <string name="volume_key_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
+
+    <!-- Safe headset volume restore checkbox -->
+    <string name="safe_headset_volume_title">Safe headset volume</string>
+    <string name="safe_headset_volume_summary">Prevent loud volume levels when headset is first plugged in</string>
+    <string name="headset_connect_player_title">Launch music app on connect</string>
+
+    <!-- Waiver -->
+    <string name="baked_waiver_title">Waiver</string>
+    <string name="baked_waiver_body">Changing this setting may be against your state or government laws.\n\nIn selecting \'OK\' below, you acknowledge this warning and waive, indemnify and hold harmless TeamBAKED and its contributors from all legal liabilities.</string>
 
 </resources>
