@@ -47,7 +47,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Special preference type that allows configuration of both the ring volume and
@@ -180,9 +179,6 @@ public class RingerVolumePreference extends VolumePreference {
             }
         }
 
-        final int silentableStreams = System.getInt(getContext().getContentResolver(),
-                System.MODE_RINGER_STREAMS_AFFECTED,
-                ((1 << AudioSystem.STREAM_NOTIFICATION) | (1 << AudioSystem.STREAM_RING)));
         // Register callbacks for mute/unmute buttons
         for (int i = 0; i < mCheckBoxes.length; i++) {
             ImageView checkbox = (ImageView) view.findViewById(CHECKBOX_VIEW_ID[i]);
