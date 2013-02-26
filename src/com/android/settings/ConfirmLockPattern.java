@@ -259,7 +259,6 @@ public class ConfirmLockPattern extends PreferenceActivity {
             }
 
             public void onPatternDetected(List<LockPatternView.Cell> pattern) {
-                mLockPatternView.setLockPatternSize(mLockPatternUtils.getLockPatternSize());
                 if (mLockPatternUtils.checkPattern(pattern)) {
 
                     Intent intent = new Intent();

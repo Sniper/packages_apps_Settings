@@ -492,11 +492,7 @@ public class DataUsageSummary extends Fragment {
         final MenuItem help = menu.findItem(R.id.data_usage_menu_help);
         String helpUrl;
         if (!TextUtils.isEmpty(helpUrl = getResources().getString(R.string.help_url_data_usage))) {
-            Intent helpIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(helpUrl));
-            helpIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            help.setIntent(helpIntent);
-            help.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            HelpUtils.prepareHelpMenuItem(context, help, helpUrl);
         } else {
             help.setVisible(false);
         }
@@ -1187,8 +1183,8 @@ public class DataUsageSummary extends Fragment {
         final String rangePhrase = formatDateRange(context, start, end);
 
         final int summaryRes;
-        if (TAB_MOBILE.equals(mCurrentTab) || TAB_3G.equals(mCurrentApp)
-                || TAB_4G.equals(mCurrentApp)) {
+        if (TAB_MOBILE.equals(mCurrentTab) || TAB_3G.equals(mCurrentTab)
+                || TAB_4G.equals(mCurrentTab)) {
             summaryRes = R.string.data_usage_total_during_range_mobile;
         } else {
             summaryRes = R.string.data_usage_total_during_range;
