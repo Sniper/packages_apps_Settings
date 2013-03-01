@@ -4851,4 +4851,9 @@
     <!-- Stylus Icon -->
     <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
     <string name="stylus_icon_enabled_summary">Show the pointer icon when hovering or drawing with the stylus</string>
+
+    <!-- Per App Dpi -->
+    <string name="dpi_settings">DPI &amp; TABLET SETTINGS</string>
+    <string name="xposed_dpi_settings">Per-App Settings</string>
+    <string name="xposed_frameworks_settings">Modules Management</string>
 </resources>
