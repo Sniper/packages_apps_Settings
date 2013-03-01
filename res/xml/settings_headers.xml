@@ -78,6 +78,17 @@
                 android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
     </header>
 
+    <!-- Themes -->
+    <header
+        android:id="@+id/themes_settings"
+        android:icon="@drawable/ic_settings_themes"
+        android:title="@string/themes_settings_title">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.tmobile.themechooser"
+            android:targetClass="com.tmobile.themechooser.ThemeChooser" />
+    </header>
+
     <!-- DPI Settings -->
     <header android:title="@string/dpi_settings" />
 
@@ -88,26 +99,15 @@
                 android:action="android.intent.action.MAIN"
                 android:targetPackage="de.robv.android.xposed.installer"
                 android:targetClass="de.robv.android.xposed.installer.XposedInstallerActivity" />
-   </header>
+    </header>
 
-   <header
+    <header
             android:icon="@drawable/ic_settings_multiuser"
             android:title="@string/xposed_dpi_settings">
         <intent
                 android:action="android.intent.action.MAIN"
                 android:targetPackage="de.robv.android.xposed.mods.appsettings"
                 android:targetClass="de.robv.android.xposed.mods.appsettings.XposedModActivity" />
-    </header>
-
-    <!-- Themes -->
-    <header
-        android:id="@+id/themes_settings"
-        android:icon="@drawable/ic_settings_themes"
-        android:title="@string/themes_settings_title">
-        <intent
-            android:action="android.intent.action.MAIN"
-            android:targetPackage="com.tmobile.themechooser"
-            android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
     <!-- DEVICE -->
